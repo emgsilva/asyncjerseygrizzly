@@ -1,5 +1,6 @@
-package asyncjersey.sigmabees.com.AsyncJerseyGrizzly;
+package asyncjersey.AsyncJerseyGrizzly;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.GET;
@@ -10,8 +11,8 @@ import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.server.ManagedAsync;
 
-@Path("/")
-public class Resource {
+@Path("/composite")
+public class ResourceCompletableFuture {
 
 	@GET
 	@ManagedAsync
@@ -23,28 +24,7 @@ public class Resource {
 
 		ServiceTest service = new ServiceTest();
 
-		String result = service.veryExpensiveOperaiton();
-		asyncResponse.resume(result);
+		CompletableFuture.runAsync(() -> service.veryExpensiveOperaiton())
+				.thenApply((result) -> asyncResponse.resume(result));
 	}
-}
-
-// fake class
-class ServiceTest {
-
-	// with timeout faking that the operation takes long time to process
-	// - this will test the "async response timeout" handler
-	public String veryExpensiveOperaiton() {
-
-		try {
-			Thread.sleep(2000);
-
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		System.out.println("Test passed");
-		
-		return "Hello";
-	}
-
 }

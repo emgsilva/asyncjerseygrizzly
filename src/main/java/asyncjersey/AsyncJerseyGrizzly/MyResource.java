@@ -1,4 +1,4 @@
-package asyncjersey.sigmabees.com.AsyncJerseyGrizzly;
+package asyncjersey.AsyncJerseyGrizzly;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
