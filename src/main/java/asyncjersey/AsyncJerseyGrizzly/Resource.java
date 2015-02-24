@@ -28,7 +28,7 @@ public class Resource {
 	}
 }
 
-// fake class
+// expensive operation simulation
 class ServiceTest {
 
 	// with timeout faking that the operation takes long time to process
